@@ -15,7 +15,7 @@ export default class Sun {
     }
 
     setGeometry() {
-        this.geometry = new THREE.SphereGeometry(1, 64);
+        this.geometry = new THREE.SphereGeometry(696.34, 640);
     }
 
     setTextures() {

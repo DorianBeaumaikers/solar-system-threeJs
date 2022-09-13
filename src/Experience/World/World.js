@@ -15,18 +15,42 @@ export default class World {
         this.resources.on('ready', () => {
             // Setup
             this.sun = new Sun();
-            this.earth = new Planet(2.5, 2.5, 2.5, 1, 0.0001);
-            this.mars = new Planet(-5, 0, 5, 5, 0.0002);
+            this.mercury = new Planet(0.330, 24.395, 5429, 3.7, 4222.6, 4600, 6980, 5790, 5667.03, 1186.95, 88, 0.0474, 0.206, 7, 0.034);
+            this.venus = new Planet(4.87, 60.52, 5243, 8.9, 2802, 10750, 10890, 10820, 10799.74, 75.6, 224.7, 0.035, 0.007, 3.4, 177.4);
+            this.earth = new Planet(5.97, 63.78, 5514, 9.8, 24, 14710, 15210, 14960, 14997.83, 255, 365.2, 0.0298, 0.017, 0, 23.4);
+            this.mars = new Planet(0.642, 33.96, 3934, 3.7, 24.7, 20670, 24930, 22800, 22699.05, 2143.2, 687, 0.0241, 0.094, 1.8, 25.2);
+            this.jupiter = new Planet(1898, 714.92, 1326, 23.1, 9.9, 74060, 81640, 77850, 77806.43, 3817.1, 4331, 0.0131, 0.049, 1.3, 3.1);
+            this.saturn = new Planet(568, 602.68, 687, 9, 10.7, 135760, 150650, 143200, 148811.49, 8151, 10747, 0.0097, 0.052, 2.5, 26.7);
+            this.uranus = new Planet(86.8, 255.59, 1270, 8.7, 17.2, 273270, 300140, 286700, 286696.19, 13202, 30589, 0.0068, 0.047, 0.8, 97.8);
+            this.neptune = new Planet(102, 247.64, 1638, 11, 16.1, 447110, 455890, 451500, 449972.77, 4950, 59800, 0.0054, 0.010, 1.8, 28.3);
             this.environment = new Environment();
         })
     }
 
     update() {
+        if(this.mercury){
+            this.mercury.update();
+        }
+        if(this.venus){
+            this.venus.update();
+        }
         if(this.earth){
             this.earth.update();
         }
         if(this.mars){
             this.mars.update();
+        }
+        if(this.jupiter){
+            this.jupiter.update();
+        }
+        if(this.saturn){
+            this.saturn.update();
+        }
+        if(this.uranus){
+            this.uranus.update();
+        }
+        if(this.neptune){
+            this.neptune.update();
         }
     }
 }
