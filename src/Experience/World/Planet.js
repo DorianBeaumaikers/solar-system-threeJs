@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience";
 
 export default class Planet {
-    constructor(mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt) {
+    constructor(mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, texture) {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.time = this.experience.time;
@@ -24,6 +24,7 @@ export default class Planet {
         this.orbitalEccentricity = orbitalEccentricity;
         this.orbitalInclination = orbitalInclination;
         this.planetaryTilt = planetaryTilt;
+        this.texture = texture;
 
         // Setup
         this.setGeometry();
@@ -39,10 +40,15 @@ export default class Planet {
 
     setTextures() {
         this.textures = {};
+
+        this.textures.color = this.texture;
+        this.textures.color.encoding = THREE.sRGBEncoding
     }
 
     setMaterials() {
-        this.material = new THREE.MeshStandardMaterial({});
+        this.material = new THREE.MeshStandardMaterial({
+            map: this.textures.color
+        });
     }
 
     setMesh() {
@@ -59,7 +65,7 @@ export default class Planet {
             0
         );
         
-        const points = curve.getPoints( 5000 );
+        const points = curve.getPoints( 500 );
 
         points.forEach(p => {
             p.z = p.y;
@@ -68,7 +74,7 @@ export default class Planet {
 
         const geometry = new THREE.BufferGeometry().setFromPoints( points );
         
-        const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+        const material = new THREE.LineBasicMaterial( { color: 0x36454F } );
         
         this.ellipse = new THREE.Line( geometry, material );
     

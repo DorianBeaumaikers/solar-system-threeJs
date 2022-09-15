@@ -20,10 +20,15 @@ export default class Sun {
 
     setTextures() {
         this.textures = {};
+
+        this.textures.color = this.resources.items.sunTexture;
+        this.textures.color.encoding = THREE.sRGBEncoding
     }
 
     setMaterials() {
-        this.material = new THREE.MeshBasicMaterial({color:"#ffa500"});
+        this.material = new THREE.MeshBasicMaterial({
+            map: this.textures.color,
+        });
     }
 
     setMesh() {

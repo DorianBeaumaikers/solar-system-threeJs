@@ -10,5 +10,50 @@ export default [
             'textures/environmentMap/pz.png',
             'textures/environmentMap/nz.png'
         ]
+    },
+    {
+        name: 'sunTexture',
+        type: 'texture',
+        path: 'textures/sun/sun.jpg'
+    },
+    {
+        name: 'mercuryTexture',
+        type: 'texture',
+        path: 'textures/mercury/mercury.jpg'
+    },
+    {
+        name: 'venusTexture',
+        type: 'texture',
+        path: 'textures/venus/venus.jpg'
+    },
+    {
+        name: 'earthTexture',
+        type: 'texture',
+        path: 'textures/earth/earth.jpg'
+    },
+    {
+        name: 'marsTexture',
+        type: 'texture',
+        path: 'textures/mars/mars.jpg'
+    },
+    {
+        name: 'jupiterTexture',
+        type: 'texture',
+        path: 'textures/jupiter/jupiter.jpg'
+    },
+    {
+        name: 'saturnTexture',
+        type: 'texture',
+        path: 'textures/saturn/saturn.jpg'
+    },
+    {
+        name: 'uranusTexture',
+        type: 'texture',
+        path: 'textures/uranus/uranus.jpg'
+    },
+    {
+        name: 'neptuneTexture',
+        type: 'texture',
+        path: 'textures/neptune/neptune.jpg'
     }
 ]
