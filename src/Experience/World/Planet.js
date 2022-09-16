@@ -74,7 +74,7 @@ export default class Planet {
 
         const geometry = new THREE.BufferGeometry().setFromPoints( points );
         
-        const material = new THREE.LineBasicMaterial( { color: 0x36454F } );
+        const material = new THREE.LineBasicMaterial( { color: 0x101010 } );
         
         this.ellipse = new THREE.Line( geometry, material );
     

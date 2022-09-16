@@ -3,6 +3,9 @@ import Experience from "../Experience";
 import Environment from "./Environment";
 import Sun from "./Sun";
 import Planet from "./Planet";
+import Stars from "./Stars";
+import AsteroidBelt from "./AsteroidBelt";
+import KuiperBelt from "./KuiperBelt";
 
 export default class World {
     constructor() {
@@ -23,6 +26,9 @@ export default class World {
             this.saturn = new Planet(568, 602.68, 687, 9, 10.7, 135760, 150650, 143200, 148811.49, 8151, 10747, 0.0097, 0.052, 2.5, 26.7, this.resources.items.saturnTexture);
             this.uranus = new Planet(86.8, 255.59, 1270, 8.7, 17.2, 273270, 300140, 286700, 286696.19, 13202, 30589, 0.0068, 0.047, 0.8, 97.8, this.resources.items.uranusTexture);
             this.neptune = new Planet(102, 247.64, 1638, 11, 16.1, 447110, 455890, 451500, 449972.77, 4950, 59800, 0.0054, 0.010, 1.8, 28.3, this.resources.items.neptuneTexture);
+            this.stars = new Stars();
+            this.asteroidBelt = new AsteroidBelt();
+            this.kuiperBelt = new KuiperBelt();
             this.environment = new Environment();
         })
     }
@@ -51,6 +57,12 @@ export default class World {
         }
         if(this.neptune){
             this.neptune.update();
+        }
+        if(this.asteroidBelt){
+            this.asteroidBelt.update();
+        }
+        if(this.kuiperBelt){
+            this.kuiperBelt.update();
         }
     }
 }
