@@ -65,7 +65,7 @@ export default class Planet {
             0
         );
         
-        const points = curve.getPoints( 500 );
+        const points = curve.getPoints( 5000 );
 
         points.forEach(p => {
             p.z = p.y;

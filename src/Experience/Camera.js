@@ -11,26 +11,41 @@ export default class Camera {
 
         this.setInstance();
 
+        this.setFakeInstance();
+
         this.setControls();
     }
 
     setInstance() {
         this.instance = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 1000000000);
         this.instance.position.set(6000, 4000, 8000);
-        this.scene.add(this.instance);
+    }
+
+    setFakeInstance() {
+        this.fakeInstance = this.instance.clone();
     }
 
     setControls() {
-        this.controls = new OrbitControls(this.instance, this.canvas);
+        this.controls = new OrbitControls(this.fakeInstance, this.canvas);
         this.controls.enableDamping = true;
+        this.controls.enablePan = false;
     }
 
     resize() {
         this.instance.aspect = this.sizes.width / this.sizes.height;
         this.instance.updateProjectionMatrix();
+
+        this.fakeInstance.aspect = this.sizes.width / this.sizes.height;
+        this.fakeInstance.updateProjectionMatrix();
+    }
+
+    changeCenter(object) {
+        object.add(this.instance);
     }
 
     update() {
+        this.instance.copy(this.fakeInstance);
+
         this.controls.update();
     }
 }
