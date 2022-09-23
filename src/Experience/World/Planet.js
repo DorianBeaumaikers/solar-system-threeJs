@@ -2,12 +2,13 @@ import * as THREE from "three";
 import Experience from "../Experience";
 
 export default class Planet {
-    constructor(mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, texture) {
+    constructor(name, mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, texture) {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.time = this.experience.time;
         this.resources = this.experience.resources;
 
+        this.name = name;
         this.mass = mass;
         this.radius = radius;
         this.diameter = this.radius * 2;
@@ -31,7 +32,8 @@ export default class Planet {
         this.setTextures();
         this.setMaterials();
         this.setMesh();
-        this.createOrbitPath()
+        this.createOrbitPath();
+        this.setListeners();
     }
 
     setGeometry() {
@@ -57,15 +59,16 @@ export default class Planet {
     }
 
     createOrbitPath() {
+
         const curve = new THREE.EllipseCurve(
-            0, this.distanceFromOrbitCenterToSun,
+            0, 0,
             this.semiMajorAxis, this.semiMinorAxis,
             0, 2 * Math.PI,
             false,
             0
         );
         
-        const points = curve.getPoints( 5000 );
+        const points = curve.getPoints( 50000 );
 
         points.forEach(p => {
             p.z = p.y;
@@ -77,20 +80,28 @@ export default class Planet {
         const material = new THREE.LineBasicMaterial( { color: 0x101010 } );
         
         this.ellipse = new THREE.Line( geometry, material );
+
+        this.ellipse.position.x = this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180))
     
-        this.ellipse.position.y = - (this.distanceFromOrbitCenterToSun * Math.tan(this.orbitalInclination * (Math.PI/180)));
+        this.ellipse.position.y = - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
         
-        this.ellipse.rotation.x = -this.orbitalInclination * (Math.PI/180);
+        this.ellipse.rotation.z = - this.orbitalInclination * (Math.PI/180);
         
         this.scene.add(this.ellipse);
         
     }
 
-    update() {
-        const currentAngle = this.time.elapsed * (this.orbitalVelocity / 1000);
+    setListeners() {
+        document.querySelector("#" + this.name + "Locate").addEventListener("click", (e) => {
+            this.experience.camera.changeCenter(this.mesh);
+        })
+    }
 
-        this.mesh.position.x = Math.cos(currentAngle) * this.semiMajorAxis;
-        this.mesh.position.z = (Math.sin(currentAngle) * this.semiMinorAxis) + this.distanceFromOrbitCenterToSun;
-        this.mesh.position.y = (Math.sin(currentAngle) * ((this.semiMinorAxis) * Math.tan(this.orbitalInclination * (Math.PI/180))));
+    update() {
+        const currentAngle = this.time.elapsed * (this.orbitalVelocity / 100) ;
+
+        this.mesh.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
+        this.mesh.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
+        this.mesh.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
     }
 }

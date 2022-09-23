@@ -12,10 +12,11 @@ export default class Sun {
         this.setTextures();
         this.setMaterials();
         this.setMesh();
+        this.setListeners();
     }
 
     setGeometry() {
-        this.geometry = new THREE.SphereGeometry(139.268, 640);
+        this.geometry = new THREE.SphereGeometry(139.268, 6400);
     }
 
     setTextures() {
@@ -34,5 +35,11 @@ export default class Sun {
     setMesh() {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.scene.add(this.mesh);
+    }
+
+    setListeners() {
+        document.querySelector("#sunLocate").addEventListener("click", (e) => {
+            this.experience.camera.changeCenter(this.mesh);
+        })
     }
 }

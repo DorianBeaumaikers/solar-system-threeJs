@@ -17,3 +17,11 @@ body
     left: 0;
     outline: none;
 }
+
+#solarSystemPanel
+{
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    padding: 10px;
+}
