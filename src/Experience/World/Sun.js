@@ -40,6 +40,9 @@ export default class Sun {
     setListeners() {
         document.querySelector("#sunLocate").addEventListener("click", (e) => {
             this.experience.camera.changeCenter(this.mesh);
+
+            let infos = document.querySelector("#infos");
+            infos.style.visibility = "hidden";
         })
     }
 }

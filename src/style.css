@@ -20,8 +20,42 @@ body
 
 #solarSystemPanel
 {
+    background-color: rgba(56, 55, 55, 0.85);
+    padding: 20px;
+    z-index: 98;
+    color: #ffefef;
     position: absolute;
-    z-index: 99;
-    background-color: white;
-    padding: 10px;
+    top: 0;
+    left: 0;
+}
+
+#solarSystemPanel p {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#solarSystemPanel button {
+    display: block;
+    background-color: rgb(39, 38, 38);
+    border: none;
+    color: #ffefef;
+    padding: 5px;
+    margin: 0 auto 10px;
+    cursor: pointer;
+}
+
+#infos {
+    background-color: rgba(56, 55, 55, 0.736);
+    padding: 20px;
+    z-index: 98;
+    color: #ffefef;
+    position: absolute;
+    margin: 20px;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+}
+  
+#infos p {
+    margin-bottom: 5px;
 }

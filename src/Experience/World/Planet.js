@@ -77,7 +77,9 @@ export default class Planet {
 
         const geometry = new THREE.BufferGeometry().setFromPoints( points );
         
-        const material = new THREE.LineBasicMaterial( { color: 0x101010 } );
+        const material = new THREE.LineBasicMaterial( { 
+            color: 0x101010,
+         } );
         
         this.ellipse = new THREE.Line( geometry, material );
 
@@ -94,6 +96,17 @@ export default class Planet {
     setListeners() {
         document.querySelector("#" + this.name + "Locate").addEventListener("click", (e) => {
             this.experience.camera.changeCenter(this.mesh);
+
+            let infos = document.querySelector("#infos");
+
+            infos.querySelector("#name").innerHTML = this.name[0].toUpperCase() + this.name.slice(1).toLowerCase();
+            infos.querySelector("#mass").innerHTML = this.mass + " x 10e24 kg";
+            infos.querySelector("#diameter").innerHTML = (this.diameter * 10000) + " km";
+            infos.querySelector("#density").innerHTML = this.density + " kg/m3";
+            infos.querySelector("#gravity").innerHTML = this.gravity + " m/s2";
+            infos.querySelector("#lengthOfDay").innerHTML = this.lengthOfDay + " hours";
+
+            infos.style.visibility = "visible";
         })
     }
 
