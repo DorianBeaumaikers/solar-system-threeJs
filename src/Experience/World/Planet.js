@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience";
 
 export default class Planet {
-    constructor(name, mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, texture) {
+    constructor(name, mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, planetaryRotationSpeed, texture) {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.time = this.experience.time;
@@ -25,6 +25,7 @@ export default class Planet {
         this.orbitalEccentricity = orbitalEccentricity;
         this.orbitalInclination = orbitalInclination;
         this.planetaryTilt = planetaryTilt;
+        this.planetaryRotationSpeed = planetaryRotationSpeed;
         this.texture = texture;
 
         // Setup
@@ -32,6 +33,8 @@ export default class Planet {
         this.setTextures();
         this.setMaterials();
         this.setMesh();
+        this.setDecoy();
+        this.setPlanetaryTilt();
         this.createOrbitPath();
         this.setListeners();
     }
@@ -56,6 +59,17 @@ export default class Planet {
     setMesh() {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.scene.add(this.mesh);
+    }
+
+    setDecoy() {
+        const decoyGeometry = new THREE.SphereGeometry(1, 64);
+        const decoyMaterial = new THREE.MeshStandardMaterial({});
+        this.decoy = new THREE.Mesh(decoyGeometry, decoyGeometry);
+        this.scene.add(this.decoy);
+    }
+
+    setPlanetaryTilt() {
+        this.mesh.rotateOnAxis(new THREE.Vector3(1, 0, 0), -this.planetaryTilt * (Math.PI/180));
     }
 
     createOrbitPath() {
@@ -95,7 +109,7 @@ export default class Planet {
 
     setListeners() {
         document.querySelector("#" + this.name + "Locate").addEventListener("click", (e) => {
-            this.experience.camera.changeCenter(this.mesh);
+            this.experience.camera.changeCenter(this.decoy);
 
             let infos = document.querySelector("#infos");
 
@@ -116,5 +130,12 @@ export default class Planet {
         this.mesh.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
         this.mesh.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
         this.mesh.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
+
+        this.mesh.rotateY(0.1 / this.lengthOfDay);
+
+        this.decoy.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
+        this.decoy.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
+        this.decoy.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
+
     }
 }
