@@ -32,6 +32,21 @@ export default [
         path: 'textures/earth/earth.jpg'
     },
     {
+        name: 'earthCloudsTexture',
+        type: 'texture',
+        path: 'textures/earth/earth_clouds.png'
+    },
+    {
+        name: 'earthNormalMapTexture',
+        type: 'texture',
+        path: 'textures/earth/earth_normal_map.jpg'
+    },
+    {
+        name: 'earthSpecularMapTexture',
+        type: 'texture',
+        path: 'textures/earth/earth_specular_map.jpg'
+    },
+    {
         name: 'marsTexture',
         type: 'texture',
         path: 'textures/mars/mars.jpg'

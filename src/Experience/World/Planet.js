@@ -33,6 +33,9 @@ export default class Planet {
         this.setTextures();
         this.setMaterials();
         this.setMesh();
+        if(this.name == "earth") {
+            this.setClouds();
+        }
         this.setDecoy();
         this.setPlanetaryTilt();
         this.createOrbitPath();
@@ -48,12 +51,26 @@ export default class Planet {
 
         this.textures.color = this.texture;
         this.textures.color.encoding = THREE.sRGBEncoding
+
+        if(this.name == "earth"){
+            this.textures.clouds = this.resources.items.earthCloudsTexture;
+            this.textures.clouds.encoding = THREE.sRGBEncoding;
+        }
+
     }
 
     setMaterials() {
-        this.material = new THREE.MeshStandardMaterial({
+        this.material = new THREE.MeshPhongMaterial({
             map: this.textures.color
         });
+        
+        if(this.name == "earth"){
+            this.material.specularMap = this.resources.items.earthSpecularMapTexture;
+            this.material.specular = new THREE.Color('grey');
+            this.material.shininess = 7;
+            this.material.normalMap = this.resources.items.earthNormalMapTexture;
+        }
+        
     }
 
     setMesh() {
@@ -61,10 +78,20 @@ export default class Planet {
         this.scene.add(this.mesh);
     }
 
+    setClouds() {
+        const cloudsGeometry = new THREE.SphereGeometry(this.diameter + 0.01, 64);
+        const cloudsMaterial = new THREE.MeshPhongMaterial({
+            map : this.textures.clouds,
+            transparent: true
+        });
+        this.clouds = new THREE.Mesh(cloudsGeometry, cloudsMaterial);
+        this.mesh.add(this.clouds);
+    }
+
     setDecoy() {
-        const decoyGeometry = new THREE.SphereGeometry(1, 64);
+        const decoyGeometry = new THREE.SphereGeometry(0.00001, 64);
         const decoyMaterial = new THREE.MeshStandardMaterial({});
-        this.decoy = new THREE.Mesh(decoyGeometry, decoyGeometry);
+        this.decoy = new THREE.Mesh(decoyGeometry, decoyMaterial);
         this.scene.add(this.decoy);
     }
 
@@ -136,6 +163,10 @@ export default class Planet {
         this.decoy.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
         this.decoy.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
         this.decoy.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
+
+        if(this.clouds) {
+            this.clouds.rotateY(0.005 / this.lengthOfDay);
+        }
 
     }
 }
