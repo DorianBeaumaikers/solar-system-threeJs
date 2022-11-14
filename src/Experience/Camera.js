@@ -27,6 +27,8 @@ export default class Camera {
 
     setControls() {
         this.controls = new OrbitControls(this.fakeInstance, this.canvas);
+        this.controls.minDistance = 1000;
+        this.controls.maxDistance = 3000000
         this.controls.enableDamping = true;
         this.controls.enablePan = false;
     }
@@ -39,8 +41,9 @@ export default class Camera {
         this.fakeInstance.updateProjectionMatrix();
     }
 
-    changeCenter(object) {
+    changeCenter(object, minCameraDistance) {
         object.add(this.instance);
+        this.controls.minDistance = minCameraDistance;
     }
 
     update() {

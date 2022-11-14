@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience";
 
 export default class Planet {
-    constructor(name, mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, planetaryRotationSpeed, texture) {
+    constructor(name, mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, planetaryRotationSpeed, minCameraDistance, texture) {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.time = this.experience.time;
@@ -26,6 +26,7 @@ export default class Planet {
         this.orbitalInclination = orbitalInclination;
         this.planetaryTilt = planetaryTilt;
         this.planetaryRotationSpeed = planetaryRotationSpeed;
+        this.minCameraDistance = minCameraDistance;
         this.texture = texture;
 
         // Setup
@@ -43,7 +44,7 @@ export default class Planet {
     }
 
     setGeometry() {
-        this.geometry = new THREE.SphereGeometry(this.diameter, 64);
+        this.geometry = new THREE.SphereGeometry(this.radius, 64);
     }
 
     setTextures() {
@@ -79,7 +80,7 @@ export default class Planet {
     }
 
     setClouds() {
-        const cloudsGeometry = new THREE.SphereGeometry(this.diameter + 0.01, 64);
+        const cloudsGeometry = new THREE.SphereGeometry(this.radius + 0.01, 64);
         const cloudsMaterial = new THREE.MeshPhongMaterial({
             map : this.textures.clouds,
             transparent: true
@@ -136,7 +137,7 @@ export default class Planet {
 
     setListeners() {
         document.querySelector("#" + this.name + "Locate").addEventListener("click", (e) => {
-            this.experience.camera.changeCenter(this.decoy);
+            this.experience.camera.changeCenter(this.decoy, this.minCameraDistance);
 
             let infos = document.querySelector("#infos");
 

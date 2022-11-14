@@ -6,6 +6,7 @@ export default class Sun {
         this.experience = new Experience();
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
+        this.minCameraDistance = 500;
 
         // Setup
         this.setGeometry();
@@ -16,7 +17,7 @@ export default class Sun {
     }
 
     setGeometry() {
-        this.geometry = new THREE.SphereGeometry(139.268, 6400);
+        this.geometry = new THREE.SphereGeometry(69.634, 6400);
     }
 
     setTextures() {
@@ -39,7 +40,7 @@ export default class Sun {
 
     setListeners() {
         document.querySelector("#sunLocate").addEventListener("click", (e) => {
-            this.experience.camera.changeCenter(this.mesh);
+            this.experience.camera.changeCenter(this.mesh, this.minCameraDistance);
 
             let infos = document.querySelector("#infos");
             infos.style.visibility = "hidden";
