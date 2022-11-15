@@ -42,6 +42,10 @@ export default class Sun {
         document.querySelector("#sunLocate").addEventListener("click", (e) => {
             this.experience.camera.changeCenter(this.mesh, this.minCameraDistance);
 
+            if(this.experience.world.lastHighlitedOrbit) {
+                this.experience.world.lastHighlitedOrbit.material.color = new THREE.Color("#101010");
+            }
+
             let infos = document.querySelector("#infos");
             infos.style.visibility = "hidden";
         })

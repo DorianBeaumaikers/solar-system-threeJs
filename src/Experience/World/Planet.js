@@ -139,6 +139,14 @@ export default class Planet {
         document.querySelector("#" + this.name + "Locate").addEventListener("click", (e) => {
             this.experience.camera.changeCenter(this.decoy, this.minCameraDistance);
 
+            if(this.experience.world.lastHighlitedOrbit) {
+                this.experience.world.lastHighlitedOrbit.material.color = new THREE.Color("#101010");
+            }
+
+            this.ellipse.material.color = new THREE.Color("#00254d");
+
+            this.experience.world.lastHighlitedOrbit = this.ellipse;
+
             let infos = document.querySelector("#infos");
 
             infos.querySelector("#name").innerHTML = this.name[0].toUpperCase() + this.name.slice(1).toLowerCase();
