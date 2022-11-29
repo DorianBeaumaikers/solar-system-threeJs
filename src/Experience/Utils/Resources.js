@@ -13,10 +13,25 @@ export default class Resources extends EventEmitter {
         this.items = {};
         this.toLoad = this.sources.length;
         this.loaded = 0;
+        this.loadingScreenElement = document.querySelector('.loading-screen');
+        this.loadingBarElement = document.querySelector('.loading-bar');
 
         this.setLoaders();
 
         this.startLoading();
+
+        this.on('ready', () => {
+            window.setTimeout(() => {
+                this.loadingBarElement.classList.add('ended');
+                this.loadingBarElement.style.transform = '';
+                window.setTimeout(() => {
+                    this.loadingScreenElement.classList.add('ended');
+                    window.setTimeout(() => {
+                        this.loadingScreenElement.style.zIndex = -1;
+                    }, 1500);
+                }, 1000);
+            }, 500);
+        })
     }
 
     setLoaders() {
@@ -60,6 +75,9 @@ export default class Resources extends EventEmitter {
         this.items[source.name] = file;
 
         this.loaded++;
+
+        const progressRatio = this.loaded / this.toLoad;
+        this.loadingBarElement.style.transform = `scaleX(${progressRatio})`;
 
         if(this.loaded === this.toLoad) {
             this.trigger('ready');
