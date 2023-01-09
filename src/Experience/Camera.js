@@ -8,6 +8,7 @@ export default class Camera {
         this.sizes = this.experience.sizes;
         this.scene = this.experience.scene;
         this.canvas = this.experience.canvas;
+        this.center = null;
 
         this.setInstance();
 
@@ -28,7 +29,7 @@ export default class Camera {
     setControls() {
         this.controls = new OrbitControls(this.fakeInstance, this.canvas);
         this.controls.minDistance = 1000;
-        this.controls.maxDistance = 3000000
+        this.controls.maxDistance = 3000000;
         this.controls.enableDamping = true;
         this.controls.enablePan = false;
     }
@@ -42,6 +43,7 @@ export default class Camera {
     }
 
     changeCenter(object, minCameraDistance) {
+        this.center = object;
         object.add(this.instance);
         this.controls.minDistance = minCameraDistance;
     }

@@ -36,11 +36,11 @@ export default class AsteroidBelt {
 
     setMaterials() {
         this.material = new THREE.PointsMaterial({
-            size: 0.01,
+            size: 10,
             sizeAttenuation: true,
             depthWrite : false,
             blending: THREE.AdditiveBlending,
-            color: '#1b1b1b'
+            color: '#ffffff'
         })
     }
 

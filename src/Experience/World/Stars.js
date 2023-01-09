@@ -34,10 +34,11 @@ export default class Stars {
 
     setMaterials() {
         this.material = new THREE.PointsMaterial({
-            size: 0.02,
-            sizeAttenuation: true,
+            size: 1,
+            sizeAttenuation: false,
             depthWrite : false,
-            blending: THREE.AdditiveBlending
+            blending: THREE.AdditiveBlending,
+            color: '#ffffff'
         })
     }
 

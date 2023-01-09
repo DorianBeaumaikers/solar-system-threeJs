@@ -79,6 +79,7 @@ body
     background-color: rgba(56, 55, 55, 0.736);
     padding: 20px;
     z-index: 98;
+    max-width: 15%;
     color: #ffefef;
     position: absolute;
     margin: 20px;
