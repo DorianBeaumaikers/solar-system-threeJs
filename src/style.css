@@ -91,3 +91,15 @@ body
 #infos p {
     margin-bottom: 5px;
 }
+
+#github {
+    z-index: 98;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 3px 1px;
+    border-left: 2px solid rgb(80, 77, 77);
+    border-top: 2px solid rgb(80, 77, 77);
+    border-radius: 20% 0 0 0;
+    background-color: #ffefef;
+}
