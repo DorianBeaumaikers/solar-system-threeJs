@@ -7,6 +7,7 @@ export default class Sun {
         this.scene = this.experience.scene;
         this.resources = this.experience.resources;
         this.minCameraDistance = 500;
+        this.name = "sun";
 
         // Setup
         this.setGeometry();
@@ -43,8 +44,17 @@ export default class Sun {
             this.experience.camera.changeCenter(this.mesh, this.minCameraDistance);
 
             if(this.experience.world.lastHighlitedOrbit) {
-                this.experience.world.lastHighlitedOrbit.material.color = new THREE.Color("#101010");
+                document.querySelector("#" + this.experience.world.lastHighlitedOrbit.name).classList.add("yellowText");
+                document.querySelector("#" + this.experience.world.lastHighlitedOrbit.name).classList.remove("blueText");
+                if(this.experience.world.lastHighlitedOrbit.ellipse) {
+                    this.experience.world.lastHighlitedOrbit.ellipse.material.color = new THREE.Color("#101010");
+                }
             }
+
+            document.querySelector("#" + this.name).classList.remove("yellowText");
+            document.querySelector("#" + this.name).classList.add("blueText");
+
+            this.experience.world.lastHighlitedOrbit = this;
 
             let infos = document.querySelector("#infos");
             infos.style.visibility = "hidden";

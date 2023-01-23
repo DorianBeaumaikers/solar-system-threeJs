@@ -51,8 +51,9 @@ body
 
 #solarSystemPanel
 {
-    background-color: rgba(56, 55, 55, 0.85);
-    padding: 20px;
+    background-color: rgba(56, 55, 55, 0.50);
+    border-right: 2px solid #5857576f;
+    border-bottom: 2px solid #5857576f;
     z-index: 98;
     color: #ffefef;
     position: absolute;
@@ -60,19 +61,62 @@ body
     left: 0;
 }
 
+#solarSystemPanel .planet {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 2px solid #5857576f;
+}
+
+#solarSystemPanel .yellowText:hover {
+    background-color: rgba(56, 55, 55, 0.60);
+    color: yellow;
+}
+
+#solarSystemPanel .yellowText:hover button {
+    color: yellow;
+}
+
+#solarSystemPanel .blueText {
+    color: rgb(58,226,239);
+}
+
+#solarSystemPanel .blueText:hover {
+    background-color: rgba(56, 55, 55, 0.60);
+}
+
+#solarSystemPanel .blueText button {
+    color: rgb(58,226,239);
+}
+
+
 #solarSystemPanel p {
-    margin-bottom: 5px;
-    text-align: center;
+    cursor: default;
 }
 
 #solarSystemPanel button {
-    display: block;
     background-color: rgb(39, 38, 38);
     border: none;
     color: #ffefef;
     padding: 5px;
-    margin: 0 auto 10px;
     cursor: pointer;
+}
+
+#solarSystemPanel .locateButton {
+    margin-left: 40px;
+}
+
+#solarSystemPanel .toggleButton {
+    display: block;
+    margin: 5px auto 0;
+}
+
+#orbits {
+    padding: 15px;
+}
+
+#orbits p {
+    text-align: center;
 }
 
 #infos {
@@ -97,9 +141,7 @@ body
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 3px 1px;
-    border-left: 2px solid rgb(80, 77, 77);
-    border-top: 2px solid rgb(80, 77, 77);
+    padding: 3px;
     border-radius: 20% 0 0 0;
     background-color: #ffefef;
 }

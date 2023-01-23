@@ -22,6 +22,9 @@ export default class World {
             // Setup
             this.sun = new Sun();
             this.experience.camera.changeCenter(this.sun.mesh, this.sun.minCameraDistance);
+            document.querySelector("#" + this.sun.name).classList.remove("yellowText");
+            document.querySelector("#" + this.sun.name).classList.add("blueText");
+            this.experience.world.lastHighlitedOrbit = this.sun;
             this.planets = [];
             this.mercury = new Planet("mercury", 0.330, 0.24395, 5429, 3.7, 1408, 4600, 6980, 5790, 5667.03, 1186.95, 88, 0.0474, 0.206, 7, 0.034, 10.83, 1, this.resources.items.mercuryTexture , "Mercury - the smallest planet in our solar system and closest to the Sun - is only slightly larger than Earth's Moon. Mercury is the fastest planet, zipping around the Sun every 88 Earth days.");
             this.planets.push(this.mercury);
@@ -52,9 +55,13 @@ export default class World {
             this.planets.forEach(planet => {
                 if(this.orbitsVisible) {
                     planet.ellipse.visible = false;
+                    document.querySelector("#orbits").classList.remove("yellowText");
+                    document.querySelector("#orbits").classList.add("blueText");
                 }
                 else {
                     planet.ellipse.visible = true;
+                    document.querySelector("#orbits").classList.add("yellowText");
+                    document.querySelector("#orbits").classList.remove("blueText");
                 }
             });
             if(this.orbitsVisible) {

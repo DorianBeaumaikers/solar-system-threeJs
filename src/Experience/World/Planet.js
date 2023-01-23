@@ -142,12 +142,19 @@ export default class Planet {
             this.experience.camera.changeCenter(this.decoy, this.minCameraDistance);
 
             if(this.experience.world.lastHighlitedOrbit) {
-                this.experience.world.lastHighlitedOrbit.material.color = new THREE.Color("#101010");
+                document.querySelector("#" + this.experience.world.lastHighlitedOrbit.name).classList.add("yellowText");
+                document.querySelector("#" + this.experience.world.lastHighlitedOrbit.name).classList.remove("blueText");
+                if(this.experience.world.lastHighlitedOrbit.ellipse) {
+                    this.experience.world.lastHighlitedOrbit.ellipse.material.color = new THREE.Color("#101010");
+                }
             }
+
+            document.querySelector("#" + this.name).classList.remove("yellowText");
+            document.querySelector("#" + this.name).classList.add("blueText");
 
             this.ellipse.material.color = new THREE.Color("#00254d");
 
-            this.experience.world.lastHighlitedOrbit = this.ellipse;
+            this.experience.world.lastHighlitedOrbit = this;
 
             let infos = document.querySelector("#infos");
 
@@ -170,7 +177,7 @@ export default class Planet {
         this.mesh.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
         this.mesh.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
 
-        this.mesh.rotateY(this.planetaryRotationSpeed / 60 / this.radius / 5000);
+        this.mesh.rotateY(this.planetaryRotationSpeed / 60 / this.radius / 5000 / 2);
 
         this.decoy.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
         this.decoy.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
