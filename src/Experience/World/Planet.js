@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 
+/*
+    This class manages the planets
+*/
+
 export default class Planet {
     constructor(name, mass, radius, density, gravity, lengthOfDay, perihelion, aphelion, semiMajorAxis, semiMinorAxis, distanceFromOrbitCenterToSun, orbitalPeriod, orbitalVelocity, orbitalEccentricity, orbitalInclination, planetaryTilt, planetaryRotationSpeed, minCameraDistance, texture, desc) {
         this.experience = new Experience();
@@ -91,6 +95,8 @@ export default class Planet {
         this.mesh.add(this.clouds);
     }
 
+    // A decoy is created for the camera
+    // The camera is added to it to not get the rotation of the planet
     setDecoy() {
         const decoyGeometry = new THREE.SphereGeometry(0.00001, 64);
         const decoyMaterial = new THREE.MeshStandardMaterial({});
@@ -173,12 +179,15 @@ export default class Planet {
     update() {
         const currentAngle = this.startingAngle + (this.time.elapsed * (this.orbitalVelocity / 100)) ;
 
+        // Update the mesh location
         this.mesh.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
         this.mesh.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
         this.mesh.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));
 
+        // Rotate the mesh
         this.mesh.rotateY(this.planetaryRotationSpeed / 60 / this.radius / 5000 / 2);
 
+        // Update the decoy location
         this.decoy.position.x = (Math.cos(currentAngle * (Math.PI/180)) * (this.semiMajorAxis * Math.cos(this.orbitalInclination * (Math.PI/180)))) + (this.distanceFromOrbitCenterToSun * Math.cos(this.orbitalInclination * (Math.PI/180)));
         this.decoy.position.z = (Math.sin(currentAngle * (Math.PI/180)) * this.semiMinorAxis);
         this.decoy.position.y = -((Math.sin((currentAngle + 90) * (Math.PI/180)) * ((this.semiMajorAxis) * Math.sin(this.orbitalInclination * (Math.PI/180))))) - (this.distanceFromOrbitCenterToSun * Math.sin(this.orbitalInclination * (Math.PI/180)));

@@ -1,5 +1,9 @@
 import EventEmitter from "./EventEmitter.js";
 
+/*
+    This class manage time, who could have guessed
+*/
+
 export default class Time extends EventEmitter {
     constructor(){
         super();
@@ -21,6 +25,7 @@ export default class Time extends EventEmitter {
         this.current = currentTime;
         this.elapsed = this.current - this.start;
 
+        // Custom event to send 'tick' to other objects
         this.trigger('tick');
 
         window.requestAnimationFrame(() => {

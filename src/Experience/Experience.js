@@ -8,6 +8,12 @@ import Resources from "./Utils/Resources.js";
 import sources from './sources.js';
 import Debug from "./Utils/Debug.js";
 
+/*
+    This class is responsible for everything else
+    Create objects for most other classes  
+    Set up a custom tick and resize event passed down to other classes
+*/
+
 let instance = null;
 
 export default class Experience {

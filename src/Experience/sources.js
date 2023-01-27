@@ -1,3 +1,7 @@
+/*
+    This file contains info for every textures
+*/
+
 export default [
     {
         name: 'environmentMapTexture',

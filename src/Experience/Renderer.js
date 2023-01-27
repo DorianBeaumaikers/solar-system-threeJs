@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import Experience from "./Experience.js";
 
+/*
+    This class manages the renderer
+*/
+
 export default class Renderer {
     constructor() {
         this.experience = new Experience();

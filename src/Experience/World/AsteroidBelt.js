@@ -2,6 +2,10 @@ import * as THREE from "three";
 import { lerp } from "three/src/math/MathUtils";
 import Experience from "../Experience";
 
+/*
+    This class manages the asteroid belt
+*/
+
 export default class AsteroidBelt {
     constructor() {
         this.experience = new Experience();

@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 
+/*
+    This class manages the sun
+*/
+
 export default class Sun {
     constructor() {
         this.experience = new Experience();

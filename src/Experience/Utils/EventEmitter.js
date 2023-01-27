@@ -1,3 +1,8 @@
+/*
+    This class can create custom event that can be send from object to object
+    Not made by myself. Taken from one of the 'ThreeJs Journey' tutorial made by Bruno Simon
+*/
+
 export default class EventEmitter
 {
     constructor()

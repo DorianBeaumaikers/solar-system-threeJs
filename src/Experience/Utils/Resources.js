@@ -2,6 +2,10 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import EventEmitter from "./EventEmitter";
 
+/*
+    This class manage the loading of textures
+*/
+
 export default class Resources extends EventEmitter {
     constructor(sources) {
         super();
@@ -22,6 +26,7 @@ export default class Resources extends EventEmitter {
 
         this.on('ready', () => {
             window.setTimeout(() => {
+                // Make the loading bar disappear
                 this.loadingBarElement.classList.add('ended');
                 this.loadingBarElement.style.transform = '';
                 window.setTimeout(() => {
@@ -76,6 +81,7 @@ export default class Resources extends EventEmitter {
 
         this.loaded++;
 
+        // Make the loading bar progress
         const progressRatio = this.loaded / this.toLoad;
         this.loadingBarElement.style.transform = `scaleX(${progressRatio})`;
 

@@ -1,5 +1,9 @@
 import EventEmitter from "./EventEmitter.js";
 
+/*
+    Class to manage the screen sizes
+*/
+
 export default class Sizes extends EventEmitter {
     constructor(){
         super();
@@ -15,6 +19,7 @@ export default class Sizes extends EventEmitter {
             this.height = window.innerHeight;
             this.pixelRatio = Math.min(window.devicePixelRatio, 2);
 
+            // Custom event to warn other objects
             this.trigger('resize');
         })
     }

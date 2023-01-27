@@ -7,6 +7,10 @@ import Stars from "./Stars";
 import AsteroidBelt from "./AsteroidBelt";
 import KuiperBelt from "./KuiperBelt";
 
+/*
+    This class manages the creation of every mesh that need to be added to the scene
+*/
+
 export default class World {
     constructor() {
         this.experience = new Experience();
@@ -20,11 +24,15 @@ export default class World {
         // Wait for resources
         this.resources.on('ready', () => {
             // Setup
+
+            // Create sun
             this.sun = new Sun();
             this.experience.camera.changeCenter(this.sun.mesh, this.sun.minCameraDistance);
             document.querySelector("#" + this.sun.name).classList.remove("yellowText");
             document.querySelector("#" + this.sun.name).classList.add("blueText");
             this.experience.world.lastHighlitedOrbit = this.sun;
+
+            // Create the planets
             this.planets = [];
             this.mercury = new Planet("mercury", 0.330, 0.24395, 5429, 3.7, 1408, 4600, 6980, 5790, 5667.03, 1186.95, 88, 0.0474, 0.206, 7, 0.034, 10.83, 1, this.resources.items.mercuryTexture , "Mercury - the smallest planet in our solar system and closest to the Sun - is only slightly larger than Earth's Moon. Mercury is the fastest planet, zipping around the Sun every 88 Earth days.");
             this.planets.push(this.mercury);
@@ -42,10 +50,15 @@ export default class World {
             this.planets.push(this.uranus);
             this.neptune = new Planet("neptune", 102, 2.4764, 1638, 11, 16.1, 447110, 455890, 451500, 449972.77, 4950, 59800, 0.0054, 0.010, 1.8, 28.3, 9719, 10, this.resources.items.neptuneTexture, "Neptune - the eighth and most distant major planet orbiting our Sun - is dark, cold and whipped by supersonic winds. It was the first planet located through mathematical calculations, rather than by telescope.");
             this.planets.push(this.neptune);
+
+            // Create the particles
             this.stars = new Stars();
             this.asteroidBelt = new AsteroidBelt();
             this.kuiperBelt = new KuiperBelt();
+
+            // Setup the lighting
             this.environment = new Environment();
+
             this.setListeners();
         })
     }

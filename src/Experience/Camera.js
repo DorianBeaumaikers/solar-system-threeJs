@@ -2,6 +2,10 @@ import * as THREE from "three";
 import Experience from "./Experience.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
+/*
+    This class manages the cameras
+*/
+
 export default class Camera {
     constructor() {
         this.experience = new Experience;
@@ -22,6 +26,7 @@ export default class Camera {
         this.instance.position.set(6000, 4000, 8000);
     }
 
+    // Create a fake instance needed to circumvent some problems I had with the default threejs camera
     setFakeInstance() {
         this.fakeInstance = this.instance.clone();
     }
@@ -32,6 +37,7 @@ export default class Camera {
         this.controls.maxDistance = 3000000;
         this.controls.enableDamping = true;
         this.controls.enablePan = false;
+        this.controls.zoomSpeed = 1.5;
     }
 
     resize() {
@@ -42,6 +48,7 @@ export default class Camera {
         this.fakeInstance.updateProjectionMatrix();
     }
 
+    // Teleport the camera so it rotate around the given mesh
     changeCenter(object, minCameraDistance) {
         this.center = object;
         object.add(this.instance);

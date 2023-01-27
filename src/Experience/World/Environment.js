@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 
+/*
+    This class mostly deals with the lighting of the scene
+*/
+
 export default class Environment {
     constructor() {
         this.experience = new Experience();
